@@ -1,15 +1,13 @@
-import { createOpenRouter } from "@openrouter/ai-sdk-provider";
+import { openai } from "@ai-sdk/openai";
 import { Agent } from "@mastra/core/agent";
 import { Memory } from "@mastra/memory";
 import { LibSQLStore } from "@mastra/libsql";
 import { weatherTool } from "../tools/weather-tool";
 
-const openrouter = createOpenRouter({
-  apiKey: process.env.OPENROUTER_API_KEY!,
-});
-
 export const weatherAgent = new Agent({
   name: "Weather Agent",
+  description:
+    "Conversational weather specialist. Best for quick, current conditions, short Q&A, and concise guidance for a single location. Uses tools to fetch live data (temperature, humidity, wind, precipitation). Prefer this when the user asks 'what’s the weather in <city> now?' or requests brief facts—not planning or itineraries.",
   instructions: `
       You are a helpful weather assistant that provides accurate weather information and can help planning activities based on the weather.
 
@@ -24,7 +22,7 @@ export const weatherAgent = new Agent({
 
       Use the weatherTool to fetch current weather data.
 `,
-  model: openrouter("moonshotai/kimi-k2:free"),
+  model: openai("gpt-5-nano-2025-08-07"),
   tools: { weatherTool },
   memory: new Memory({
     storage: new LibSQLStore({
