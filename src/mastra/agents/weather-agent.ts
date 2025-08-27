@@ -10,6 +10,8 @@ const openrouter = createOpenRouter({
 
 export const weatherAgent = new Agent({
   name: "Weather Agent",
+  description:
+    "Conversational weather specialist. Best for quick, current conditions, short Q&A, and concise guidance for a single location. Uses tools to fetch live data (temperature, humidity, wind, precipitation). Prefer this when the user asks 'what’s the weather in <city> now?' or requests brief facts—not planning or itineraries.",
   instructions: `
       You are a helpful weather assistant that provides accurate weather information and can help planning activities based on the weather.
 
